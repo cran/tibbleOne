@@ -1,4 +1,4 @@
-## ---- include = FALSE----------------------------------------------------
+## ---- include = FALSE---------------------------------------------------------
 
 library(knitr)
 
@@ -8,14 +8,11 @@ opts_chunk$set(
 )
 
 
-## ---- message = FALSE----------------------------------------------------
+## ---- message = FALSE---------------------------------------------------------
 
 library(tibbleOne)
 library(kableExtra)
-library(tidyverse)
 library(survival)
-
-data("pbc_tbl1")
 
 # set attributes and then build a meta data set
 
@@ -55,24 +52,25 @@ meta <- pbc_tbl1 %>%
 meta
 
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 
 tb1 <- pbc_tbl1 %>% 
   tibble_one(
     meta_data = meta,
     formula = ~ . | trt,
     specs_table_vals = c(albumin = 'median', bili = 'median'),
-    specs_table_tests = c(albumin = 'nopars', bili = 'nopars')
+    specs_table_tests = c(albumin = 'nopars', bili = 'nopars'),
+    include_pval = TRUE
   )
 
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 
 to_kable(tb1) %>% 
   kable_styling(bootstrap_options = c('striped', 'hover'))
 
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 
 to_word(tb1)
 
